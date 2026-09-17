@@ -1,0 +1,58 @@
+.game-page {
+  min-height: calc(100vh - 72px);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.game-player-summary {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  width: min(920px, 100%);
+  margin: 0 auto;
+  padding: 18px 20px 0;
+}
+
+.game-player-summary > div {
+  display: grid;
+  gap: 3px;
+  min-width: 210px;
+  padding: 11px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.2);
+  backdrop-filter: blur(12px);
+}
+
+.game-player-summary span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.game-player-summary strong {
+  overflow: hidden;
+  color: #fff;
+  font-size: 0.98rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.game-page .snake-game {
+  min-height: auto;
+  background: transparent;
+  padding-top: 8px;
+}
+
+@media (max-width: 640px) {
+  .game-player-summary {
+    align-items: stretch;
+    flex-direction: column;
+    padding-top: 14px;
+  }
+
+  .game-player-summary > div {
+    min-width: 0;
+  }
+}

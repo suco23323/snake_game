@@ -1,0 +1,227 @@
+.leaderboard-page {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 42px 22px 64px;
+}
+
+.leaderboard-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.leaderboard-eyebrow {
+  color: #4ade80;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.leaderboard-header h1 {
+  margin: 6px 0 8px;
+  color: #fff;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  line-height: 1;
+}
+
+.leaderboard-header p {
+  max-width: 660px;
+  margin: 0;
+  color: #94a3b8;
+  line-height: 1.7;
+}
+
+.leaderboard-refresh {
+  flex: 0 0 auto;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  border-radius: 12px;
+  background: rgba(34, 197, 94, 0.12);
+  color: #86efac;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  padding: 11px 16px;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.leaderboard-refresh:hover:not(:disabled) {
+  border-color: rgba(74, 222, 128, 0.55);
+  background: rgba(34, 197, 94, 0.2);
+}
+
+.leaderboard-refresh:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.leaderboard-error {
+  margin-bottom: 16px;
+  padding: 13px 16px;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 12px;
+  background: rgba(127, 29, 29, 0.28);
+  color: #fecaca;
+  overflow-wrap: anywhere;
+}
+
+.leaderboard-card {
+  min-height: 340px;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 22px;
+  background: rgba(15, 23, 42, 0.86);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+}
+
+.leaderboard-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.leaderboard-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.11);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.leaderboard-table th {
+  background: rgba(2, 6, 23, 0.34);
+  color: #94a3b8;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.leaderboard-table tbody tr {
+  transition: background 160ms ease;
+}
+
+.leaderboard-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.leaderboard-table tbody tr.current-user {
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.leaderboard-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.rank-badge {
+  display: inline-grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 11px;
+  background: rgba(148, 163, 184, 0.13);
+  color: #e2e8f0;
+  font-weight: 900;
+}
+
+.rank-1 {
+  background: linear-gradient(135deg, #facc15, #f59e0b);
+  color: #422006;
+}
+
+.rank-2 {
+  background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+  color: #1e293b;
+}
+
+.rank-3 {
+  background: linear-gradient(135deg, #fb923c, #c2410c);
+  color: #fff7ed;
+}
+
+.player-cell {
+  display: grid;
+  gap: 3px;
+}
+
+.player-cell strong {
+  color: #f8fafc;
+}
+
+.player-cell span {
+  color: #94a3b8;
+  font-size: 0.82rem;
+}
+
+.player-cell em {
+  width: fit-content;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(74, 222, 128, 0.14);
+  color: #86efac;
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.email-cell {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.total-score {
+  color: #4ade80;
+  font-size: 1.08rem;
+  font-weight: 900;
+}
+
+.leaderboard-empty {
+  display: grid;
+  min-height: 340px;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  padding: 30px;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.leaderboard-empty span {
+  font-size: 2.6rem;
+}
+
+.leaderboard-empty h2,
+.leaderboard-empty p {
+  margin: 0;
+}
+
+.leaderboard-empty h2 {
+  color: #e2e8f0;
+}
+
+@media (max-width: 720px) {
+  .leaderboard-page {
+    padding: 30px 14px 50px;
+  }
+
+  .leaderboard-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .leaderboard-refresh {
+    width: 100%;
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 13px 14px;
+  }
+}
