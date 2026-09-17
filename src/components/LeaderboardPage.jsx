@@ -5,6 +5,12 @@ import './LeaderboardPage.css';
 
 const formatNumber = (value) => Number(value ?? 0).toLocaleString('zh-CN');
 
+const RANK_TITLES = {
+  1: '贪吃蛇大王',
+  2: '贪吃蛇中王',
+  3: '贪吃蛇小王',
+};
+
 export function LeaderboardPage() {
   const { user } = useAuth();
   const [rows, setRows] = useState([]);
@@ -95,13 +101,22 @@ export function LeaderboardPage() {
               <tbody>
                 {rows.map((row) => {
                   const isCurrentUser = row.user_id === user?.id;
+                  const rank = Number(row.rank);
+                  const rankTitle = RANK_TITLES[rank];
 
                   return (
                     <tr className={isCurrentUser ? 'current-user' : ''} key={row.user_id}>
                       <td>
-                        <span className={`rank-badge rank-${Math.min(Number(row.rank), 3)}`}>
-                          {Number(row.rank)}
-                        </span>
+                        <div className="rank-cell">
+                          <span className={`rank-badge rank-${Math.min(rank, 3)}`}>
+                            {rank}
+                          </span>
+                          {rankTitle && (
+                            <small className={`rank-title rank-title-${rank}`}>
+                              {rankTitle}
+                            </small>
+                          )}
+                        </div>
                       </td>
                       <td>
                         <div className="player-cell">
@@ -127,4 +142,5 @@ export function LeaderboardPage() {
     </section>
   );
 }
+
 
