@@ -58,8 +58,8 @@ export function LeaderboardPage() {
       <div className="leaderboard-header">
         <div>
           <span className="leaderboard-eyebrow">在线排行榜</span>
-          <h1>总分排名</h1>
-          <p>按每位玩家的历史累计总分排名，同分时优先展示最高分更高的玩家。</p>
+          <h1>单局最高分排名</h1>
+          <p>按每位玩家的单局最高分排名，同分时先取得该分数的玩家优先。</p>
         </div>
         <button
           className="leaderboard-refresh"
@@ -93,8 +93,8 @@ export function LeaderboardPage() {
                   <th>排名</th>
                   <th>玩家</th>
                   <th>邮箱</th>
-                  <th>总分</th>
                   <th>最高分</th>
+                  <th>总分</th>
                   <th>局数</th>
                 </tr>
               </thead>
@@ -128,8 +128,8 @@ export function LeaderboardPage() {
                         </div>
                       </td>
                       <td className="email-cell">{row.email_display || '未公开'}</td>
-                      <td className="total-score">{formatNumber(row.total_score)}</td>
-                      <td>{formatNumber(row.best_score)}</td>
+                      <td className="best-score">{formatNumber(row.best_score)}</td>
+                      <td>{formatNumber(row.total_score)}</td>
                       <td>{formatNumber(row.games_played)}</td>
                     </tr>
                   );
@@ -142,5 +142,6 @@ export function LeaderboardPage() {
     </section>
   );
 }
+
 
 

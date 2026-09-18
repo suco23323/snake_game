@@ -307,7 +307,7 @@ end;
 $$;
 
 -- ----------------------------------------------------------------------------
--- Public leaderboard view: one row per player, ranked by cumulative score.
+-- Public leaderboard view: one row per player, ranked by highest single-game score.
 -- Raw email is never returned. Masked emails look like: a***@example.com.
 -- ----------------------------------------------------------------------------
 drop view if exists public.leaderboard;
@@ -355,7 +355,7 @@ user_stats as (
 )
 select
   rank() over (
-    order by us.total_score desc, bs.score desc, us.last_played_at asc, p.id
+    order by bs.score desc, bs.played_at asc, p.id
   ) as rank,
   p.id as user_id,
   p.username::text as username,
@@ -384,7 +384,7 @@ join user_stats as us
 where p.leaderboard_opt_in = true;
 
 comment on view public.leaderboard is
-  'Players ranked by cumulative score. Email addresses are masked by default.';
+  'Players ranked by their highest single-game score. Email addresses are masked by default.';
 
 -- ----------------------------------------------------------------------------
 -- Row Level Security
@@ -479,4 +479,5 @@ grant execute on function public.snakegame_submit_score(
 ) to authenticated;
 
 select 'snakegame database initialization complete' as status;
+
 
