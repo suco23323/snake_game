@@ -35,7 +35,8 @@ export function LeaderboardPage() {
         'games_played',
         'total_score',
       ].join(', '))
-      .order('rank', { ascending: true })
+      .order('best_score', { ascending: false })
+      .order('best_score_at', { ascending: true })
       .limit(100);
 
     if (queryError) {
@@ -99,9 +100,9 @@ export function LeaderboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {rows.map((row) => {
+                {rows.map((row, index) => {
                   const isCurrentUser = row.user_id === user?.id;
-                  const rank = Number(row.rank);
+                  const rank = index + 1;
                   const rankTitle = RANK_TITLES[rank];
 
                   return (
@@ -142,6 +143,7 @@ export function LeaderboardPage() {
     </section>
   );
 }
+
 
 
 
