@@ -7,6 +7,7 @@ const BOARD_SIZE = 20;
 const INITIAL_SNAKE = [{ x: 10, y: 10 }];
 const INITIAL_DIRECTION = { x: 0, y: -1 };
 const GAME_SPEED = 150;
+const FOOD_COUNT = 3;
 
 // Food types
 const FOOD_TYPES = {
@@ -264,7 +265,7 @@ const SnakeGame = ({ player, onSubmitScore }) => {
     foodsEatenRef.current = 0;
     setSnake(INITIAL_SNAKE);
     setDirection(INITIAL_DIRECTION);
-    setFoods(Array.from({ length: 3 }, () => generateFood()));
+    setFoods(Array.from({ length: FOOD_COUNT }, () => generateFood()));
     setGameOver(false);
     setScore(0);
     setGameStarted(true);
@@ -335,13 +336,26 @@ const SnakeGame = ({ player, onSubmitScore }) => {
     return () => clearTimeout(timeoutId);
   }, [gameOver, onSubmitScore, score, snake.length]);
 
-  // Periodic cleanup of expired food
+  // Periodically remove expired food and replenish it so the board never runs out.
   useEffect(() => {
     const interval = setInterval(() => {
-      setFoods(checkFoodExpiry);
+      setFoods(currentFoods => {
+        const activeFoods = checkFoodExpiry(currentFoods);
+        const missingFoodCount = FOOD_COUNT - activeFoods.length;
+
+        if (missingFoodCount <= 0) {
+          return activeFoods;
+        }
+
+        return [
+          ...activeFoods,
+          ...Array.from({ length: missingFoodCount }, () => generateFood()),
+        ];
+      });
     }, 1000);
+
     return () => clearInterval(interval);
-  }, [checkFoodExpiry]);
+  }, [checkFoodExpiry, generateFood]);
 
   // Render game board
   const renderBoard = () => {
@@ -457,6 +471,7 @@ const SnakeGame = ({ player, onSubmitScore }) => {
 };
 
 export default SnakeGame;
+
 
 
 
