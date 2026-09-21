@@ -360,15 +360,28 @@ const SnakeGame = ({ player, onSubmitScore }) => {
   // Render game board
   const renderBoard = () => {
     const board = [];
+    const snakePositionMap = new Map(
+      snake.map((segment, index) => [`${segment.x}-${segment.y}`, index])
+    );
+    const headDirection = direction.y === -1
+      ? 'up'
+      : direction.y === 1
+        ? 'down'
+        : direction.x === -1
+          ? 'left'
+          : 'right';
+
     for (let y = 0; y < BOARD_SIZE; y++) {
       for (let x = 0; x < BOARD_SIZE; x++) {
-        const isSnake = snake.some(segment => segment.x === x && segment.y === y);
-        const isHead = snake[0]?.x === x && snake[0]?.y === y;
+        const snakeIndex = snakePositionMap.get(`${x}-${y}`);
+        const isSnake = snakeIndex !== undefined;
+        const isHead = snakeIndex === 0;
+        const isTail = isSnake && snakeIndex === snake.length - 1;
         const food = foods.find(f => f.x === x && f.y === y);
         
         let cellClass = 'cell';
         if (isSnake) {
-          cellClass += isHead ? ' snake-head' : ' snake-body';
+          cellClass += isHead ? ' snake-head' : isTail ? ' snake-tail' : ' snake-body';
           if (isGhostMode) cellClass += ' ghost-mode';
         } else if (food) {
           // Do not add food class to the cell container to avoid style conflicts
@@ -381,6 +394,13 @@ const SnakeGame = ({ player, onSubmitScore }) => {
             className={cellClass}
             style={food ? { '--food-color': food.color } : {}}
           >
+            {isHead && (
+              <div className={`snake-head-inner head-${headDirection}`}>
+                <span className="snake-eye snake-eye-left" />
+                <span className="snake-eye snake-eye-right" />
+                <span className="snake-tongue" />
+              </div>
+            )}
             {food && (
               <div 
                 className={`food food-${food.type}`}
@@ -471,6 +491,7 @@ const SnakeGame = ({ player, onSubmitScore }) => {
 };
 
 export default SnakeGame;
+
 
 
 
