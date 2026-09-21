@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import confetti from 'canvas-confetti';
 import './SnakeGame.css';
 import SoundManager from '../utils/SoundManager';
 
@@ -40,65 +39,17 @@ const SnakeGame = ({ player, onSubmitScore }) => {
   const [gameSpeed, setGameSpeed] = useState(GAME_SPEED);
   const [isGhostMode, setIsGhostMode] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [showMilestone, setShowMilestone] = useState(null);
   const [scoreStatus, setScoreStatus] = useState('idle');
   const [scoreMessage, setScoreMessage] = useState('');
 
   const gameLoopRef = useRef();
   const lastUpdateTimeRef = useRef(0);
-  const previousScoreRef = useRef(0);
   const gameIdRef = useRef(null);
   const startedAtRef = useRef(null);
   const foodsEatenRef = useRef(0);
   const submittedGamesRef = useRef(new Set());
 
-  const triggerConfetti = () => {
-    const duration = 3000;
-    const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
-    const randomInRange = (min, max) => Math.random() * (max - min) + min;
-
-    const interval = setInterval(function() {
-      const timeLeft = animationEnd - Date.now();
-
-      if (timeLeft <= 0) {
-        return clearInterval(interval);
-      }
-
-      const particleCount = 50 * (timeLeft / duration);
-      
-      confetti({
-        ...defaults,
-        particleCount,
-        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
-      });
-      confetti({
-        ...defaults,
-        particleCount,
-        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
-      });
-    }, 250);
-  };
-
-  // Listen for score changes, trigger effects
-  useEffect(() => {
-    if (score > 0 && score > previousScoreRef.current) {
-      const milestone = Math.floor(score / 100) * 100;
-      const prevMilestone = Math.floor(previousScoreRef.current / 100) * 100;
-
-      if (milestone > prevMilestone) {
-        // Trigger confetti effect
-        triggerConfetti();
-        // Show milestone notification
-        setShowMilestone(milestone);
-        setTimeout(() => setShowMilestone(null), 3000);
-        // Play special sound effect
-        SoundManager.play('goldenFood');
-      }
-    }
-    previousScoreRef.current = score;
-  }, [score]);
 
   // Generate random food
   const generateFood = useCallback(() => {
@@ -424,11 +375,7 @@ const SnakeGame = ({ player, onSubmitScore }) => {
         <div className="game-stats">
           <div className="score">Score: {score}</div>
           <div className="length">Length: {snake.length}</div>
-          {showMilestone && (
-            <div className="milestone-notification">
-              🎉 Reached {showMilestone} points! 🎉
-            </div>
-          )}
+
           {isGhostMode && <div className="effect-indicator ghost">👻 Ghost Mode</div>}
           {isPaused && <div className="effect-indicator paused">⏸️ Paused</div>}
         </div>
@@ -491,6 +438,8 @@ const SnakeGame = ({ player, onSubmitScore }) => {
 };
 
 export default SnakeGame;
+
+
 
 
 

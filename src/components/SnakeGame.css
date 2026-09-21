@@ -36,34 +36,6 @@
   backdrop-filter: blur(10px);
 }
 
-.milestone-notification {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(255, 215, 0, 0.9);
-  color: #333;
-  padding: 20px 40px;
-  border-radius: 50px;
-  font-size: 2rem;
-  font-weight: bold;
-  z-index: 100;
-  box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
-  animation: milestone-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
-             milestone-fade 0.5s ease-in 2.5s forwards;
-  pointer-events: none;
-  text-align: center;
-  white-space: nowrap;
-}
-
-@keyframes milestone-pop {
-  0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-}
-
-@keyframes milestone-fade {
-  to { opacity: 0; transform: translate(-50%, -60%); }
-}
 
 .effect-indicator {
   background: rgba(255, 255, 255, 0.3);
@@ -475,4 +447,5 @@
 .score-save-status.error {
   color: #fca5a5;
 }
+
 
